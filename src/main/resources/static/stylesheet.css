@@ -1,0 +1,15 @@
+body {
+    position: relative;
+    background-color: black;
+}
+main {
+    margin-bottom: 220px;
+}
+
+.footer {
+    position: absolute;
+    width: 100%;
+    min-height: 320px;
+    bottom: 40px;
+    left: 0;
+}
