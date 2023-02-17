@@ -1,0 +1,12 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials :: head">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<head th:replace="partials :: navbar"/>
+<main>
+    <h1 class="m-3"><span th:text="${post.getTitle()}">USA</span></h1>
+    <h2 class="m-2"><span th:text="${post.getBody()}">Went and saw stuff</span></h2>
+
+</main>
+<footer th:replace="partials :: footer"/>
+</body>

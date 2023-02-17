@@ -1,35 +1,44 @@
 package com.codeup.codeupspringblog;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+
 @Controller
 public class PostController {
 
     @GetMapping("/posts")
-    @ResponseBody
-    public String getAllPosts(){
-        return "retrieves all blog posts";
+    public String getAllPosts(Model model) {
+        ArrayList<Post> posts = new ArrayList<>();
+        posts.add(new Post("Greece", "Lovely country, good beaches"));
+        posts.add(new Post("Italy", "Oh boy... the pasta was tight"));
+        posts.add(new Post("England", "Fish and Chips mate."));
+        model.addAttribute("allPosts", posts);
+        return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
-    @ResponseBody
-    public String getPostById(@PathVariable int id){
-        return "retrieves single blog post by the path variable passed: " + id;
+    public String getPostById(@PathVariable int id, Model model) {
+        Post test = new Post("Italy", "Oh boy... the pasta was tight");
+        model.addAttribute("post", test);
+        model.addAttribute("id", id);
+        return "/posts/show";
     }
 
     @GetMapping("/posts/create")
     @ResponseBody
-    public String viewPostForm(){
+    public String viewPostForm() {
         return "shows form to create new post";
     }
 
     @PostMapping("/posts/create")
     @ResponseBody
-    public String createPost(){
+    public String createPost() {
         return "creates post";
     }
 
