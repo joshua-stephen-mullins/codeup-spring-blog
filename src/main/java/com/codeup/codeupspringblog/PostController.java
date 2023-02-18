@@ -2,10 +2,7 @@ package com.codeup.codeupspringblog;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -33,22 +30,14 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
     public String viewPostForm() {
-        return "shows form to create new post";
+        return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String createPost() {
-        return "creates post";
+    public String createPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
+        Post post = new Post(title, body);
+        postDao.save(post);
+        return "redirect:/posts";
     }
-
 }
-
-
-//    method	url	description
-//        GET	/posts	posts index page
-//        GET	/posts/{id}	view an individual post
-//        GET	/posts/create	view the form for creating a post
-//        POST	/posts/create	create a new post
