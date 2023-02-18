@@ -12,13 +12,15 @@ import java.util.ArrayList;
 @Controller
 public class PostController {
 
+    private final PostRepository postDao;
+
+    public PostController(PostRepository postDao) {
+        this.postDao = postDao;
+    }
+
     @GetMapping("/posts")
     public String getAllPosts(Model model) {
-        ArrayList<Post> posts = new ArrayList<>();
-        posts.add(new Post("Greece", "Lovely country, good beaches"));
-        posts.add(new Post("Italy", "Oh boy... the pasta was tight"));
-        posts.add(new Post("England", "Fish and Chips mate."));
-        model.addAttribute("allPosts", posts);
+        model.addAttribute("allPosts", postDao.findAll());
         return "posts/index";
     }
 
