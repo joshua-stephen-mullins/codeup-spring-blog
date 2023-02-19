@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Controller
 public class PostController {
@@ -22,10 +23,9 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public String getPostById(@PathVariable int id, Model model) {
-        Post test = new Post("Italy", "Oh boy... the pasta was tight");
-        model.addAttribute("post", test);
-        model.addAttribute("id", id);
+    public String getPostById(@PathVariable long id, Model model) {
+        Post post = postDao.getById(id);
+        model.addAttribute("post", post);
         return "/posts/show";
     }
 
