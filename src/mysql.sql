@@ -35,6 +35,6 @@ VALUES ('Greece', 'Lovely country, good beaches', 1),
 
 
 CREATE USER 'blog_user'@'localhost' IDENTIFIED BY 'usa';
-GRANT ALL ON post TO 'blog_user'@'localhost' WITH GRANT OPTION;
+GRANT ALL ON posts TO 'blog_user'@'localhost' WITH GRANT OPTION;
 GRANT ALL ON users TO 'blog_user'@'localhost' WITH GRANT OPTION;
 SHOW GRANTS for 'blog_user'@'localhost';

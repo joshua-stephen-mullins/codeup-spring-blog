@@ -1,5 +1,10 @@
-package com.codeup.codeupspringblog;
+package com.codeup.codeupspringblog.controllers;
 
+import com.codeup.codeupspringblog.*;
+import com.codeup.codeupspringblog.models.Post;
+import com.codeup.codeupspringblog.models.User;
+import com.codeup.codeupspringblog.repositories.PostRepository;
+import com.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +15,12 @@ public class PostController {
     private final PostRepository postDao;
     private final UserRepository userDao;
 
-    public PostController(PostRepository postDao, UserRepository userDao) {
+    private final EmailService emailService;
+
+    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -51,8 +59,11 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post) {
-        User user = new User("joshua", "joshua@email", "usa");
+//        User joshua = new User("joshua", "joshuamullins@proton.me", "usa");
+        User joshua =userDao.getById(1L);
+        post.setPoster(joshua);
         postDao.save(post);
+//        emailService.prepareAndSend(post, post.getTitle(), "Created New Ad");
         return "redirect:/posts";
     }
 }
