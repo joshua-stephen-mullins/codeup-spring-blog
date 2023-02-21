@@ -28,13 +28,6 @@
                         <button class="btn btn-sm btn-primary">Logout</button>
                     </form>
                 </li>
-                <li>
-                    <div sec:authorize="isAuthenticated()">
-                        User ID: <span th:text="${#authentication.principal.id}"/>
-                        Username: <span th:text="${#authentication.principal.username}"/>
-                        Email: <span th:text="${#authentication.principal.email}"/>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>
