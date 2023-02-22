@@ -4,11 +4,6 @@
 <body class="d-flex flex-column min-vh-100">
 <head th:replace="partials :: navbar"/>
 <main>
-<!--        <div sec:authorize="isAuthenticated()">-->
-<!--            User ID: <span th:text="${#authentication.principal.id}"/>-->
-<!--            Username: <span th:text="${#authentication.principal.username}"/>-->
-<!--            Email: <span th:text="${#authentication.principal.email}"/>-->
-<!--        </div>-->
     <h1 class="text-center">ALL POSTS</h1>
     <div class="row justify-content-evenly flex-wrap">
         <div th:each="post : ${allPosts}" class="col-2 m-1 d-flex flex-column border border-3 rounded-1">
@@ -16,7 +11,7 @@
             <p th:text="${post.body}"/>
             <div class="d-flex justify-content-end">
                 <a class="btn btn-sm btn-primary m-1" th:href="@{/posts/{id}(id=${post.getId()})}">View</a>
-                <a class="btn btn-sm btn-primary m-1" th:href="@{'/posts/' + ${post.getId()} + '/edit'}">Edit</a>
+                <a sec:authorize="isAuthenticated()" class="btn btn-sm btn-primary m-1" th:href="@{'/posts/' + ${post.getId()} + '/edit'}">Edit</a>
             </div>
         </div>
     </div>

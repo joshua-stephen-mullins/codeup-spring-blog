@@ -5,6 +5,7 @@ import com.codeup.codeupspringblog.models.Post;
 import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,22 +33,19 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String getPostById(@PathVariable long id, Model model) {
-        Post post = postDao.getById(id);
+        Post post = postDao.findById(id).get();
         model.addAttribute("post", post);
         return "/posts/show";
     }
 
     @GetMapping("/posts/{id}/edit")
-    public String viewPostEditById(@PathVariable long id, Model model, @ModelAttribute Post post) {
-        Post originalPost = postDao.getById(id);
-        model.addAttribute("post", post);
-        model.addAttribute("originalPost", originalPost);
+    public String viewPostEditById(@PathVariable long id, Model model) {
+        model.addAttribute("post", postDao.findById(id).get());
         return "/posts/edit";
     }
 
     @PostMapping("/posts/{id}/edit")
     public String editPostById(@PathVariable long id, @ModelAttribute Post post) {
-        post.setId(id);
         post.setPoster((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         postDao.save(post);
         return "redirect:/posts";
