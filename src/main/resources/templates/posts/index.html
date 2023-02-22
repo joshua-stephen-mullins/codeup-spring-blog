@@ -11,7 +11,7 @@
             <p th:text="${post.body}"/>
             <div class="d-flex justify-content-end">
                 <a class="btn btn-sm btn-primary m-1" th:href="@{/posts/{id}(id=${post.getId()})}">View</a>
-                <a sec:authorize="isAuthenticated()" class="btn btn-sm btn-primary m-1" th:href="@{'/posts/' + ${post.getId()} + '/edit'}">Edit</a>
+                <a th:if="${post.poster.getId()} == ${#authentication.principal.id}" class="btn btn-sm btn-primary m-1" th:href="@{'/posts/' + ${post.getId()} + '/edit'}">Edit</a>
             </div>
         </div>
     </div>

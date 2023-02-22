@@ -16,7 +16,6 @@ public class PostController {
 
     private final PostRepository postDao;
     private final UserRepository userDao;
-
     private final EmailService emailService;
 
     public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService) {
@@ -40,8 +39,11 @@ public class PostController {
 
     @GetMapping("/posts/{id}/edit")
     public String viewPostEditById(@PathVariable long id, Model model) {
-        model.addAttribute("post", postDao.findById(id).get());
-        return "/posts/edit";
+        if (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId().equals(postDao.findById(id).get().getPoster().getId())) {
+            model.addAttribute("post", postDao.findById(id).get());
+            return "/posts/edit";
+        }
+        return "redirect:/posts";
     }
 
     @PostMapping("/posts/{id}/edit")
