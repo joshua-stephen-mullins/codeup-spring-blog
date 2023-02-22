@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials :: head">
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -6,7 +6,7 @@
 <main>
     <h1 class="text-center m-3">Edit a Post</h1>
     <div class="container">
-        <form th:action="@{/posts/edit}" th:method="post" th:object="${post}">
+        <form th:action="@{'/posts/' + ${originalPost.getId()} + '/edit'}" th:method="post" th:object="${post}">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" id="title" name="title" th:value="${originalPost.getTitle()}">

@@ -9,7 +9,7 @@
 <body>
 <nav th:fragment="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">BLOG!</a>
+        <a class="navbar-brand" href="/posts">BLOG!</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -18,14 +18,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/posts">Home</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/posts/create">Create</a>
                 </li>
                 <li>
                     <form th:action="@{/logout}" th:method="post">
-                        <button class="btn btn-sm btn-primary">Logout</button>
+                        <button class="btn btn-sm btn-danger">Logout</button>
                     </form>
                 </li>
             </ul>

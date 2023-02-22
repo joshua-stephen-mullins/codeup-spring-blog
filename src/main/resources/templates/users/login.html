@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials :: head">
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -13,7 +13,7 @@
             You have been logged out.
         </div>
 
-        <form th:action="@{/login}" th:method="POST">
+        <form th:action="@{/login}" th:method="post">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" id="username" name="username">

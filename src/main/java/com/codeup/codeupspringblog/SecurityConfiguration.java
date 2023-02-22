@@ -34,31 +34,54 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+//                /* Login configuration */
+//                .formLogin()
+//                .loginPage("/login")
+//                .defaultSuccessUrl("/") // user's home page, it can be any URL
+//                .permitAll() // Anyone can go to the login page
+//                /* Logout configuration */
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/login") // append a query string value
+//                /* Pages that can be viewed without having to log in */
+//                .and()
+//                .authorizeHttpRequests()
+//                .requestMatchers(
+//                        "/",
+//                        "/posts",
+//                        "/sign-up",
+//                        "/posts/{id}"
+//                ) // anyone can see the home and the ads pages
+//                .permitAll()
+//                /* Pages that require authentication */
+//                .and()
+//                .authorizeHttpRequests()
+//                .requestMatchers(
+//                        "/posts/create", // only authenticated users can create ads
+//                        "/posts/{id}/edit" // only authenticated users can edit ads
+//                )
+//                .authenticated()
                 /* Login configuration */
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/") // user's home page, it can be any URL
+                .defaultSuccessUrl("/posts") // user's home page, it can be any URL
                 .permitAll() // Anyone can go to the login page
                 /* Logout configuration */
                 .and()
                 .logout()
-                .logoutSuccessUrl("/login") // append a query string value
+                .logoutSuccessUrl("/login?logout") // append a query string value
                 /* Pages that can be viewed without having to log in */
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers(
-                        "/",
-                        "/posts",
-                        "/sign-up",
-                        "/posts/{id}"
-                ) // anyone can see the home and the ads pages
+                .requestMatchers("/", "/posts", "/sign-up", "/posts/{id}", "/login") // anyone can see the home and the ads pages
                 .permitAll()
                 /* Pages that require authentication */
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(
                         "/posts/create", // only authenticated users can create ads
-                        "/posts/{id}/edit" // only authenticated users can edit ads
+                        "/posts/{id}/edit", // only authenticated users can edit ads
+                        "/posts/edit" // only authenticated users can edit ads
                 )
                 .authenticated()
         ;

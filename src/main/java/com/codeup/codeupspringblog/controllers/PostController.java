@@ -45,11 +45,12 @@ public class PostController {
         return "/posts/edit";
     }
 
-    @PostMapping("/posts/edit")
-    public String editPostById(@RequestParam(name="id") int id, @ModelAttribute Post post) {
+    @PostMapping("/posts/{id}/edit")
+    public String editPostById(@PathVariable long id, @ModelAttribute Post post) {
         post.setId(id);
+        post.setPoster((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         postDao.save(post);
-        return "/posts/show";
+        return "redirect:/posts";
     }
 
     @GetMapping("/posts/create")

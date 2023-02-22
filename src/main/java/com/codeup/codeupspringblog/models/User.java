@@ -2,6 +2,8 @@ package com.codeup.codeupspringblog.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -18,6 +20,9 @@ public class User {
     @Column(nullable = false, length = 256)
     private String password;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "poster")
+    private List<Post> posts;
+
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
@@ -25,7 +30,6 @@ public class User {
     }
 
     public User() {
-
     }
 
     public User(User copy) {
