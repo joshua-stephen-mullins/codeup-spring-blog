@@ -63,4 +63,11 @@ public class PostController {
         emailService.sendTextEmail(post);
         return "redirect:/posts";
     }
+
+    @GetMapping("/posts/{id}/delete")
+    public String deletePost(@PathVariable long id) {
+        postService.deletePostById(id);
+        return "redirect:/posts";
+    }
+
 }
