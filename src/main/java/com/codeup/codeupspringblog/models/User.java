@@ -1,5 +1,7 @@
 package com.codeup.codeupspringblog.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,9 +20,11 @@ public class User {
     private String email;
 
     @Column(nullable = false, length = 256)
+    @JsonIgnore
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "poster")
+    @JsonBackReference
     private List<Post> posts;
 
     public User(String username, String email, String password) {

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -69,5 +70,16 @@ public class PostController {
         postService.deletePostById(id);
         return "redirect:/posts";
     }
+
+    @GetMapping("/posts/ajax")
+    public String viewPostsAJAX() {
+        return "posts/index-ajax";
+    }
+
+    @GetMapping("/posts.json")
+    public @ResponseBody List<Post> viewAllPostsInJSONFormat() {
+        return postService.getAllPosts();
+    }
+
 
 }
