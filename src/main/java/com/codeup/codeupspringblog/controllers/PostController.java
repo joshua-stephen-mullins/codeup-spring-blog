@@ -81,5 +81,10 @@ public class PostController {
         return postService.getAllPosts();
     }
 
+    @GetMapping("/posts/{id}.json")
+    public @ResponseBody Post viewPostInJSONFormatById(@PathVariable long id) {
+        return postService.findPostById(id);
+    }
+
 
 }
