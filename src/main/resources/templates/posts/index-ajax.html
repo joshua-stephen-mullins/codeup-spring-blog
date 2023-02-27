@@ -5,22 +5,13 @@
 <head th:replace="partials :: navbar"/>
 <main>
     <h1 class="text-center">ALL POSTS</h1>
-    <div class="row justify-content-evenly flex-wrap">
-        <div th:each="post : ${allPosts}" class="col-2 m-1 d-flex flex-column border border-3 rounded-1">
-            <h3 class="text-center fw-bold" th:text="${post.title}"/>
-            <p th:text="${post.body}"/>
-            <div class="d-flex justify-content-end">
-                <a class="btn btn-sm btn-primary m-1" th:href="@{/posts/{id}(id=${post.getId()})}">View</a>
-                <div th:if="${#authentication.principal.id} != null">
-                    <a th:if="${post.poster.getId()} == ${#authentication.principal.id}"
-                       class="btn btn-sm btn-primary m-1" th:href="@{'/posts/' + ${post.getId()} + '/edit'}">Edit</a>
-                    <a th:if="${post.poster.getId()} == ${#authentication.principal.id}"
-                       class="btn btn-sm btn-danger m-1" th:href="@{'/posts/' + ${post.getId()} + '/delete'}">Delete</a>
-                </div>
-            </div>
-        </div>
+    <div class="row justify-content-evenly flex-wrap" id="postContainer">
+
     </div>
 
 </main>
 <footer th:replace="partials :: footer"/>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="/js/posts.js"></script>
+
 </body>
