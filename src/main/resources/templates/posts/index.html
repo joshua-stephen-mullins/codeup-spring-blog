@@ -11,12 +11,12 @@
             <p th:text="${post.body}"/>
             <div class="d-flex justify-content-end">
                 <a class="btn btn-sm btn-primary m-1" th:href="@{/posts/{id}(id=${post.getId()})}">View</a>
-                <div th:if="${#authentication.principal.id} != null">
+                <th:block sec:authorize="isAuthenticated()">
                     <a th:if="${post.poster.getId()} == ${#authentication.principal.id}"
                        class="btn btn-sm btn-primary m-1" th:href="@{'/posts/' + ${post.getId()} + '/edit'}">Edit</a>
                     <a th:if="${post.poster.getId()} == ${#authentication.principal.id}"
                        class="btn btn-sm btn-danger m-1" th:href="@{'/posts/' + ${post.getId()} + '/delete'}">Delete</a>
-                </div>
+                </th:block>
             </div>
         </div>
     </div>

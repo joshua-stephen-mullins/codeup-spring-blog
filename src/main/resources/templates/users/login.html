@@ -1,8 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials :: head">
+<head th:replace="~{partials :: head}">
 </head>
 <body class="d-flex flex-column min-vh-100">
-<head th:replace="partials :: navbar"/>
+<head th:replace="~{partials :: navbar}"/>
 <main>
     <h1 class="text-center m-3">Login</h1>
     <div class="container">
@@ -20,5 +20,5 @@
         </form>
     </div>
 </main>
-<footer th:replace="partials :: footer"/>
+<footer th:replace="~{partials :: footer}"/>
 </body>

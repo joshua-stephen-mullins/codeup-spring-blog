@@ -6,8 +6,8 @@
 <main>
     <h1 class="text-center">ALL POSTS</h1>
     <div class="row justify-content-evenly flex-wrap" id="postContainer">
+        <input class="d-none" id="userId" th:value="${#authentication.principal.id}">
     </div>
-
 </main>
 <footer th:replace="partials :: footer"/>
 <script th:src="@{https://code.jquery.com/jquery-3.6.3.min.js}" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>

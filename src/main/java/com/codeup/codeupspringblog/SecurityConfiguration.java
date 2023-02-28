@@ -54,7 +54,8 @@ public class SecurityConfiguration {
                         "/posts/ajax",
                         "/posts.json",
                         "/js/posts.js",
-                        "/posts/{id}.json") // anyone can see the home and the ads pages
+                        "/posts/{id}.json",
+                        "/error/**") // anyone can see the home and the ads pages
                 .permitAll()
                 /* Pages that require authentication */
                 .and()

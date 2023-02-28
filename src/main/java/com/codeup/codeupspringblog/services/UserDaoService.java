@@ -21,4 +21,8 @@ public class UserDaoService {
         newUser.setPassword(hash);
         userRepository.save(newUser);
     }
+
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
 }
