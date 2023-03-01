@@ -2,7 +2,6 @@ package com.codeup.codeupspringblog;
 
 import com.codeup.codeupspringblog.models.Post;
 import com.codeup.codeupspringblog.models.User;
-
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import jakarta.servlet.http.HttpSession;
@@ -17,19 +16,15 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.Assert.assertNotNull;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = CodeupSpringBlogApplicationTests.class)
+@SpringBootTest(classes = CodeupSpringBlogApplication.class)
 @AutoConfigureMockMvc
 public class PostsIntegrationTests {
 
@@ -43,7 +38,7 @@ public class PostsIntegrationTests {
     UserRepository userDao;
 
     @Autowired
-    PostRepository postsDao;
+    PostRepository postDao;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -53,14 +48,13 @@ public class PostsIntegrationTests {
 
         testUser = userDao.findByUsername("testUser");
 
-        if(testUser == null){
+        if (testUser == null) {
             User newUser = new User();
             newUser.setUsername("testUser");
             newUser.setPassword(passwordEncoder.encode("pass"));
             newUser.setEmail("testUser@codeup.com");
             testUser = userDao.save(newUser);
         }
-
 
         httpSession = this.mvc.perform(post("/login").with(csrf())
                         .param("username", "testUser")
@@ -87,30 +81,28 @@ public class PostsIntegrationTests {
         this.mvc.perform(
                         post("/posts/create").with(csrf())
                                 .session((MockHttpSession) httpSession)
-                                .param("title", "testing")
-                                .param("body", "had a good day today"))
+                                .param("title", "test post")
+                                .param("body", "lorem ipsum"))
                 .andExpect(status().is3xxRedirection());
     }
-
     @Test
     public void testShowPost() throws Exception {
 
-        Post existingPost = postsDao.findAll().get(0);
+        Post existingPost = postDao.findAll().get(0);
 
         this.mvc.perform(get("/posts/" + existingPost.getId()))
                 .andExpect(status().isOk())
-                .andExpect((ResultMatcher) content().string(containsString(existingPost.getBody())));
+                .andExpect(content().string(containsString(existingPost.getBody())));
     }
 
     @Test
-    public void testSinglePostsIndex() throws Exception {
-        Post existingPost = postsDao.findAll().get(0);
+    public void testPostsIndex() throws Exception {
+        Post existingPost = postDao.findAll().get(0);
 
         this.mvc.perform(get("/posts"))
                 .andExpect(status().isOk())
-                .andExpect((ResultMatcher) content().string(containsString("All Posts")))
-                .andExpect((ResultMatcher) content().string(containsString(existingPost.getTitle())));
+                .andExpect(content().string(containsString("test post")))
+                .andExpect(content().string(containsString(existingPost.getTitle())));
     }
 
 }
-
